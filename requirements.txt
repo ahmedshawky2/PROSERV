@@ -1,0 +1,4 @@
+pyzk==0.9
+pandas==0.25.3
+tika==1.24
+python-docx==0.8.10
