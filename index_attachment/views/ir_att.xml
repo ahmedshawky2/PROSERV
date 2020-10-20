@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="view_ir_attachment_extend_custom" model="ir.ui.view">
+            <field name="name">view.ir.attachment.extend.custom.form.inherited</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="before">
+                    <button string="Indexing Content" name="IndexingAttachmentSelf" type="object" />
+                </xpath>
+                <xpath expr="//field[@name='index_content']" position="after">
+                    <field name="is_indexed" />
+                    <field name="indexed_date" />
+                    <field name="att_content" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
