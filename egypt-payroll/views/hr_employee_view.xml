@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Add test field to existing view -->
+        <record model="ir.ui.view" id="hr_salary_actions_view">
+            <field name="name">Salary Actions</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='hr_settings']" position="after">
+                        <page name="salary_actions" string="Salary Actions">
+                                <field name="employee_salary_actions" mode="tree" >
+                                 <tree string="Salary Action Items" editable="top" >
+                                     <field name="action_desc" />
+                                     <field name="action_date" />
+                                     <field name="amount" />
+                                     <field name="number_of_days" />
+                                     <field name="contract_id" invisible="1"/>
+                                     <field name="status_flag" />
+                                     <field name="is_executed" readonly="1"/>
+                                 </tree>
+                             </field>
+                        </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_fixed_salary_rules_view">
+            <field name="name">Fixed Salary Rules</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='salary_actions']" position="after">
+                        <page name="fixed_salary_rules" string="Fixed Salary Rules">
+                                <field name="employee_fixed_salary_rules" mode="tree" >
+                                 <tree string="Fixed Salary Rules Items" editable="top" >
+                                     <field name="rule" />
+                                     <field name="reason" />
+                                     <field name="rule_start_date" invisible="1"/>
+                                     <field name="rule_end_date" invisible="1"/>
+                                     <field name="status_rule_flag" invisible="1"/>
+                                     <field name="salary_structure" readonly="1"/>
+                                 </tree>
+                             </field>
+                        </page>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!--<record model="ir.ui.view" id="hr_salary_rules_structure_view">
+            <field name="name">Salary Rules Structures</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='fixed_salary_rules']" position="after">
+                        <page name="salary_rules_structures" string="Salary Rules Structure">
+                            <field name="rule_ids" mode="tree" >
+                                <tree string="Structure Salary Rules Items" editable="top" >
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="category_id"/>
+                                    <field name="sequence" readonly="1"/>
+                                    <field name="register_id"/>
+                                 </tree>
+                             </field>
+                        </page>
+                </xpath>
+            </field>
+        </record>-->
+
+    </data>
+</odoo>
