@@ -337,25 +337,359 @@ class taxation(models.Model):
                                         str(result)))
                                 return result
 
+    def SalaryTaxFrom601To700Layer(self,salary):
+
+        tax0 = 0.0
+        tax2_5 = 0.0
+        tax10 = 0.0
+        tax15 = 0.0
+        tax20 = 0.0
+        tax22_5 = 0.0
+        tax25 = 0.0
+        result = 0.0
+        personal_exempt = (1 / 12) * 9000
+        salary = salary - personal_exempt
+        salary_after_deduct_tax = salary
+
+        if salary <= (30000 / 12):
+            _logger.info('salary <= (30000 / 12) ==> maged !')
+            tax2_5 = salary * 0.025
+            _logger.info('tax2_5 = salary * 0.025 ==> maged ! "%s"' % (str(tax2_5)))
+            result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+            _logger.info('result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (str(result)))
+            return result
+
+        else:
+            tax2_5 = (30000 / 12) * 0.025
+            _logger.info('(30000 / 12) ==> maged ! "%s"' % (str((30000 / 12))))
+            salary_after_deduct_tax = salary_after_deduct_tax - (30000 / 12)
+            _logger.info('salary_after_deduct_tax = salary_after_deduct_tax - (30000 / 12) ==> maged ! "%s"' % (str(salary_after_deduct_tax)))
+
+            if 0 <= salary_after_deduct_tax <= (15000 / 12):
+                _logger.info('(0 / 12) <= salary_after_deduct_tax <= (15000 / 12) ==> maged 1 !')
+                tax10 = salary_after_deduct_tax * 0.1
+                _logger.info('tax10 = salary_after_deduct_tax * 0.1 ==> maged ! "%s"' % (str(tax10)))
+                result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                _logger.info(
+                    'result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (str(result)))
+                return result
+            else:
+                tax10 = (15000 / 12) * 0.1
+                _logger.info('(15000 / 12) ==> maged ! "%s"' % (str((15000 / 12))))
+                salary_after_deduct_tax = salary_after_deduct_tax - (15000 / 12)
+                _logger.info('tax10 ==> maged ! "%s"' % (str(tax10)))
+                _logger.info('salary_after_deduct_tax ==> maged ! "%s"' % (str(salary_after_deduct_tax)))
+
+                if 0 <= salary_after_deduct_tax <= (15000 / 12):
+                    _logger.info('0 <= salary_after_deduct_tax <= (15000 / 12) ==> maged !')
+                    tax15 = salary_after_deduct_tax * 0.15
+                    _logger.info('tax10 = salary_after_deduct_tax * 0.15 ==> maged ! "%s"' % (str(tax15)))
+                    result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                    _logger.info('result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (str(result)))
+                    return result
+                else:
+                    tax15 = (15000 / 12) * 0.15
+                    _logger.info('(15000 / 12) ==> maged ! "%s"' % (str((15000 / 12))))
+                    salary_after_deduct_tax = salary_after_deduct_tax - (15000 / 12)
+                    _logger.info('tax15 ==> maged ! "%s"' % (str(tax15)))
+                    _logger.info('salary_after_deduct_tax ==> maged ! "%s"' % (str(salary_after_deduct_tax)))
 
 
+                    if 0 <= salary_after_deduct_tax <= (140000 / 12):
+                        _logger.info('0 <= salary_after_deduct_tax <= (140000 / 12) ==> maged !')
+                        tax20 = salary_after_deduct_tax * 0.2
+                        _logger.info('tax20 = salary_after_deduct_tax * 0.20 ==> maged ! "%s"' % (str(tax20)))
+                        result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                        _logger.info('result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (
+                                str(result)))
+                        return result
 
-    def SalaryTaxFrom601To700Layer(self):
+                    else:
 
-        return True
+                        tax20 = (140000 / 12) * 0.2
+                        _logger.info('(140000 / 12) ==> maged ! "%s"' % (str((140000 / 12))))
+                        salary_after_deduct_tax = salary_after_deduct_tax - (140000 / 12)
+                        _logger.info('tax20 ==> maged ! "%s"' % (str(tax20)))
+                        _logger.info('salary_after_deduct_tax ==> maged ! "%s"' % (str(salary_after_deduct_tax)))
 
-    def SalaryTaxFrom701To800Layer(self):
+                        if 0 <= salary_after_deduct_tax <= (200000 / 12):
+                            _logger.info('0 <= salary_after_deduct_tax <= (200000 / 12) ==> maged !')
+                            tax22_5 = salary_after_deduct_tax * 0.225
+                            _logger.info('tax22_5 = salary_after_deduct_tax * 0.225 ==> maged ! "%s"' % (str(tax22_5)))
+                            result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                            _logger.info('result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (str(result)))
+                            return result
 
-        return True
+                        else:
+                            tax22_5 = (200000 / 12) * 0.225
+                            _logger.info('(200000 / 12) ==> maged ! "%s"' % (str((200000 / 12))))
+                            salary_after_deduct_tax = salary_after_deduct_tax - (200000 / 12)
+                            _logger.info('tax22_5 ==> maged ! "%s"' % (str(tax22_5)))
+                            _logger.info('salary_after_deduct_tax ==> maged ! "%s"' % (str(salary_after_deduct_tax)))
 
-    def SalaryTaxFrom801To900Layer(self):
+                            if salary_after_deduct_tax >= (200001 / 12):
+                                _logger.info('salary_after_deduct_tax >= (200001 / 12) ==> maged !')
+                                tax25 = salary_after_deduct_tax * 0.25
+                                _logger.info('tax25 = salary_after_deduct_tax * 0.25 ==> maged ! "%s"' % (str(tax25)))
+                                result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                                _logger.info(
+                                    'result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (
+                                        str(result)))
 
-        return True
+                                return result
 
-    def SalaryTaxFrom901To1000Layer(self):
+    def SalaryTaxFrom701To800Layer(self,salary):
 
-        return True
+        tax0 = 0.0
+        tax2_5 = 0.0
+        tax10 = 0.0
+        tax15 = 0.0
+        tax20 = 0.0
+        tax22_5 = 0.0
+        tax25 = 0.0
+        result = 0.0
+        personal_exempt = (1 / 12) * 9000
+        salary = salary - personal_exempt
+        salary_after_deduct_tax = salary
 
-    def SalaryTaxFrom1001Layer(self):
+        if salary <= (45000 / 12):
+            _logger.info('salary <= (45000 / 12) ==> maged !')
+            tax10 = salary * 0.1
+            _logger.info('tax10 = salary * 0.1 ==> maged ! "%s"' % (str(tax10)))
+            result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+            _logger.info('result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (str(result)))
+            return result
 
-        return True
+        else:
+            tax2_5 = (45000 / 12) * 0.1
+            _logger.info('(45000 / 12) ==> maged ! "%s"' % (str((45000 / 12))))
+            salary_after_deduct_tax = salary_after_deduct_tax - (45000 / 12)
+            _logger.info('salary_after_deduct_tax = salary_after_deduct_tax - (30000 / 12) ==> maged ! "%s"' % (str(salary_after_deduct_tax)))
+
+            if 0 <= salary_after_deduct_tax <= (15000 / 12):
+                _logger.info('(0 / 12) <= salary_after_deduct_tax <= (15000 / 12) ==> maged 1 !')
+                tax15 = salary_after_deduct_tax * 0.15
+                _logger.info('tax10 = salary_after_deduct_tax * 0.15 ==> maged ! "%s"' % (str(tax15)))
+                result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                _logger.info('result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (str(result)))
+                return result
+
+            else:
+                tax15 = (15000 / 12) * 0.15
+                _logger.info('(15000 / 12) ==> maged ! "%s"' % (str((15000 / 12))))
+                salary_after_deduct_tax = salary_after_deduct_tax - (15000 / 12)
+                _logger.info('tax15 ==> maged ! "%s"' % (str(tax15)))
+                _logger.info('salary_after_deduct_tax ==> maged ! "%s"' % (str(salary_after_deduct_tax)))
+
+                if 0 <= salary_after_deduct_tax <= (140000 / 12):
+                    _logger.info('0 <= salary_after_deduct_tax <= (140000 / 12) ==> maged !')
+                    tax20 = salary_after_deduct_tax * 0.2
+                    _logger.info('tax20 = salary_after_deduct_tax * 0.20 ==> maged ! "%s"' % (str(tax20)))
+                    result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                    _logger.info('result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (
+                        str(result)))
+                    return result
+
+                else:
+
+                    tax20 = (140000 / 12) * 0.2
+                    _logger.info('(140000 / 12) ==> maged ! "%s"' % (str((140000 / 12))))
+                    salary_after_deduct_tax = salary_after_deduct_tax - (140000 / 12)
+                    _logger.info('tax20 ==> maged ! "%s"' % (str(tax20)))
+                    _logger.info('salary_after_deduct_tax ==> maged ! "%s"' % (str(salary_after_deduct_tax)))
+
+                    if 0 <= salary_after_deduct_tax <= (200000 / 12):
+                        _logger.info('0 <= salary_after_deduct_tax <= (200000 / 12) ==> maged !')
+                        tax22_5 = salary_after_deduct_tax * 0.225
+                        _logger.info('tax22_5 = salary_after_deduct_tax * 0.225 ==> maged ! "%s"' % (str(tax22_5)))
+                        result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                        _logger.info(
+                            'result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (
+                                str(result)))
+                        return result
+
+                    else:
+                        tax22_5 = (200000 / 12) * 0.225
+                        _logger.info('(200000 / 12) ==> maged ! "%s"' % (str((200000 / 12))))
+                        salary_after_deduct_tax = salary_after_deduct_tax - (200000 / 12)
+                        _logger.info('tax22_5 ==> maged ! "%s"' % (str(tax22_5)))
+                        _logger.info('salary_after_deduct_tax ==> maged ! "%s"' % (str(salary_after_deduct_tax)))
+
+                        if salary_after_deduct_tax >= (200001 / 12):
+                            _logger.info('salary_after_deduct_tax >= (200001 / 12) ==> maged !')
+                            tax25 = salary_after_deduct_tax * 0.25
+                            _logger.info('tax25 = salary_after_deduct_tax * 0.25 ==> maged ! "%s"' % (str(tax25)))
+                            result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                            _logger.info(
+                                'result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (
+                                    str(result)))
+
+                            return result
+
+    def SalaryTaxFrom801To900Layer(self,salary):
+
+        tax0 = 0.0
+        tax2_5 = 0.0
+        tax10 = 0.0
+        tax15 = 0.0
+        tax20 = 0.0
+        tax22_5 = 0.0
+        tax25 = 0.0
+        result = 0.0
+        personal_exempt = (1 / 12) * 9000
+        salary = salary - personal_exempt
+        salary_after_deduct_tax = salary
+
+        if salary <= (60000 / 12):
+            _logger.info('salary <= (60000 / 12) ==> maged !')
+            tax15 = salary * 0.15
+            _logger.info('tax15 = salary * 0.15 ==> maged ! "%s"' % (str(tax15)))
+            result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+            _logger.info('result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (str(result)))
+            return result
+
+        else:
+            tax2_5 = (60000 / 12) * 0.15
+            _logger.info('(60000 / 12) ==> maged ! "%s"' % (str((60000 / 12))))
+            salary_after_deduct_tax = salary_after_deduct_tax - (60000 / 12)
+            _logger.info('salary_after_deduct_tax = salary_after_deduct_tax - (30000 / 12) ==> maged ! "%s"' % (str(salary_after_deduct_tax)))
+
+            if 0 <= salary_after_deduct_tax <= (140000 / 12):
+                _logger.info('0 <= salary_after_deduct_tax <= (140000 / 12) ==> maged !')
+                tax20 = salary_after_deduct_tax * 0.2
+                _logger.info('tax20 = salary_after_deduct_tax * 0.20 ==> maged ! "%s"' % (str(tax20)))
+                result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                _logger.info('result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (
+                    str(result)))
+                return result
+
+            else:
+
+                tax20 = (140000 / 12) * 0.2
+                _logger.info('(140000 / 12) ==> maged ! "%s"' % (str((140000 / 12))))
+                salary_after_deduct_tax = salary_after_deduct_tax - (140000 / 12)
+                _logger.info('tax20 ==> maged ! "%s"' % (str(tax20)))
+                _logger.info('salary_after_deduct_tax ==> maged ! "%s"' % (str(salary_after_deduct_tax)))
+
+                if 0 <= salary_after_deduct_tax <= (200000 / 12):
+                    _logger.info('0 <= salary_after_deduct_tax <= (200000 / 12) ==> maged !')
+                    tax22_5 = salary_after_deduct_tax * 0.225
+                    _logger.info('tax22_5 = salary_after_deduct_tax * 0.225 ==> maged ! "%s"' % (str(tax22_5)))
+                    result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                    _logger.info(
+                        'result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (
+                            str(result)))
+                    return result
+
+                else:
+                    tax22_5 = (200000 / 12) * 0.225
+                    _logger.info('(200000 / 12) ==> maged ! "%s"' % (str((200000 / 12))))
+                    salary_after_deduct_tax = salary_after_deduct_tax - (200000 / 12)
+                    _logger.info('tax22_5 ==> maged ! "%s"' % (str(tax22_5)))
+                    _logger.info('salary_after_deduct_tax ==> maged ! "%s"' % (str(salary_after_deduct_tax)))
+
+                    if salary_after_deduct_tax >= (200001 / 12):
+                        _logger.info('salary_after_deduct_tax >= (200001 / 12) ==> maged !')
+                        tax25 = salary_after_deduct_tax * 0.25
+                        _logger.info('tax25 = salary_after_deduct_tax * 0.25 ==> maged ! "%s"' % (str(tax25)))
+                        result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                        _logger.info(
+                            'result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (
+                                str(result)))
+
+                        return result
+
+    def SalaryTaxFrom901To1000Layer(self,salary):
+
+        tax0 = 0.0
+        tax2_5 = 0.0
+        tax10 = 0.0
+        tax15 = 0.0
+        tax20 = 0.0
+        tax22_5 = 0.0
+        tax25 = 0.0
+        result = 0.0
+        personal_exempt = (1 / 12) * 9000
+        salary = salary - personal_exempt
+        salary_after_deduct_tax = salary
+
+        if salary <= (200000 / 12):
+            _logger.info('salary <= (200000 / 12) ==> maged !')
+            tax20 = salary * 0.2
+            _logger.info('tax20 = salary * 0.2 ==> maged ! "%s"' % (str(tax20)))
+            result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+            _logger.info('result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (str(result)))
+            return result
+
+        else:
+            tax20 = (200000 / 12) * 0.2
+            _logger.info('(200000 / 12) ==> maged ! "%s"' % (str((200000 / 12))))
+            salary_after_deduct_tax = salary_after_deduct_tax - (200000 / 12)
+            _logger.info('salary_after_deduct_tax = salary_after_deduct_tax - (200000 / 12) ==> maged ! "%s"' % (str(salary_after_deduct_tax)))
+
+
+            if 0 <= salary_after_deduct_tax <= (200000 / 12):
+                _logger.info('0 <= salary_after_deduct_tax <= (200000 / 12) ==> maged !')
+                tax22_5 = salary_after_deduct_tax * 0.225
+                _logger.info('tax22_5 = salary_after_deduct_tax * 0.225 ==> maged ! "%s"' % (str(tax22_5)))
+                result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                _logger.info(
+                    'result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (
+                        str(result)))
+                return result
+
+            else:
+                tax22_5 = (200000 / 12) * 0.225
+                _logger.info('(200000 / 12) ==> maged ! "%s"' % (str((200000 / 12))))
+                salary_after_deduct_tax = salary_after_deduct_tax - (200000 / 12)
+                _logger.info('tax22_5 ==> maged ! "%s"' % (str(tax22_5)))
+                _logger.info('salary_after_deduct_tax ==> maged ! "%s"' % (str(salary_after_deduct_tax)))
+
+                if salary_after_deduct_tax >= (200001 / 12):
+                    _logger.info('salary_after_deduct_tax >= (200001 / 12) ==> maged !')
+                    tax25 = salary_after_deduct_tax * 0.25
+                    _logger.info('tax25 = salary_after_deduct_tax * 0.25 ==> maged ! "%s"' % (str(tax25)))
+                    result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                    _logger.info(
+                        'result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (
+                            str(result)))
+
+                    return result
+
+    def SalaryTaxFrom1001Layer(self,salary):
+
+        tax0 = 0.0
+        tax2_5 = 0.0
+        tax10 = 0.0
+        tax15 = 0.0
+        tax20 = 0.0
+        tax22_5 = 0.0
+        tax25 = 0.0
+        result = 0.0
+        personal_exempt = (1 / 12) * 9000
+        salary = salary - personal_exempt
+        salary_after_deduct_tax = salary
+
+        if salary <= (400000 / 12):
+            _logger.info('salary <= (400000 / 12) ==> maged !')
+            tax22_5 = salary * 0.225
+            _logger.info('tax22_5 = salary * 0.225 ==> maged ! "%s"' % (str(tax22_5)))
+            result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+            _logger.info('result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (str(result)))
+            return result
+
+        else:
+            tax20 = (400000 / 12) * 0.225
+            _logger.info('(400000 / 12) ==> maged ! "%s"' % (str((400000 / 12))))
+            salary_after_deduct_tax = salary_after_deduct_tax - (400000 / 12)
+            _logger.info('salary_after_deduct_tax = salary_after_deduct_tax - (400000 / 12) ==> maged ! "%s"' % (str(salary_after_deduct_tax)))
+
+
+            if salary_after_deduct_tax >= 0:
+                _logger.info('salary_after_deduct_tax >= 0 ==> maged !')
+                tax25 = salary_after_deduct_tax * 0.25
+                _logger.info('tax25 = salary_after_deduct_tax * 0.25 ==> maged ! "%s"' % (str(tax25)))
+                result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                _logger.info('result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (str(result)))
+
+                return result
