@@ -34,7 +34,7 @@ class taxation(models.Model):
         net_salary_flag = emp_rec.net_salary_flag
 
         if net_salary_flag == True:
-            return taxation.reversePaySlip(self, emp_id, netSalary)
+            return taxation.reversePaySlip(self, emp_id, netgross)
 
         else:
             return taxation.EgyPayroll(self, emp_id, netgross)
