@@ -7,6 +7,11 @@
             <field name="type_id">1</field>
         </record>
 
+        <record id="EGYPT_STRUCTURE_REVERSE" model="hr.payroll.structure">
+            <field name="name">EG Structure Reverse</field>
+            <field name="type_id">1</field>
+        </record>
+
         <record id="BASIC" model="hr.salary.rule.category">
             <field name="name">Basic EG</field>
             <field name="code">BASIC</field>
@@ -194,6 +199,51 @@
             <field name="amount_python_compute">	result = (categories.NET) * 0.1</field>
             <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE"></field>
         </record>-->
+
+
+        <record id="hr_rule_net_gross_reverse" model="hr.salary.rule">
+            <field name="name">Gross Reverse EG</field>
+            <field name="sequence" eval="601"/>
+            <field name="code">GROSS_REVERSE</field>
+            <field name="category_id" ref="egypt-payroll.GROSS"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = payslip.env['hr.payslip'].reversePaySlip(contract.employee_id, contract.wage)</field>
+            <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE_REVERSE"></field>
+        </record>
+
+        <record id="hr_rule_nsat_reverse" model="hr.salary.rule">
+            <field name="name">Net Salary After Taxes Reverse EG</field>
+            <field name="sequence" eval="900"/>
+            <field name="code">NSAT_REVERSE</field>
+            <field name="category_id" ref="egypt-payroll.NET"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.wage</field>
+            <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE_REVERSE"></field>
+        </record>
+
+        <record id="hr_rule_tax_reverse" model="hr.salary.rule">
+            <field name="name">Salary Tax Reverse EG</field>
+            <field name="sequence" eval="800"/>
+            <field name="code">ST_REVERSE</field>
+            <field name="category_id" ref="egypt-payroll.TAX"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = payslip.env['hr.payslip'].reversePaySlip(contract.employee_id, contract.wage) - contract.wage</field>
+            <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE_REVERSE"></field>
+        </record>
+
+        <record id="hr_rule_net_reverse" model="hr.salary.rule">
+            <field name="name">Net Salary Reverse EG</field>
+            <field name="sequence" eval="701"/>
+            <field name="code">NET_REVERSE</field>
+            <field name="category_id" ref="egypt-payroll.NET"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = payslip.env['hr.payslip'].reversePaySlip(contract.employee_id, contract.wage)</field>
+            <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE_REVERSE"></field>
+        </record>
 
 
     </data>

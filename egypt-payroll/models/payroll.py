@@ -192,6 +192,9 @@ class taxation(models.Model):
                                     'result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (
                                         str(result)))
                                 return result
+                            else:
+                                result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                                return result
 
     def SalaryTaxFrom601To700Layer(self,salary):
 
@@ -293,6 +296,9 @@ class taxation(models.Model):
                                         str(result)))
 
                                 return result
+                            else:
+                                result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                                return result
 
     def SalaryTaxFrom701To800Layer(self,salary):
 
@@ -381,6 +387,9 @@ class taxation(models.Model):
                                     str(result)))
 
                             return result
+                        else:
+                            result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                            return result
 
     def SalaryTaxFrom801To900Layer(self,salary):
 
@@ -454,6 +463,9 @@ class taxation(models.Model):
                                 str(result)))
 
                         return result
+                    else:
+                        result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                        return result
 
     def SalaryTaxFrom901To1000Layer(self,salary):
 
@@ -511,6 +523,9 @@ class taxation(models.Model):
                             str(result)))
 
                     return result
+                else:
+                    result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                    return result
 
     def SalaryTaxFrom1001Layer(self,salary):
 
@@ -549,3 +564,119 @@ class taxation(models.Model):
                 _logger.info('result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25 ==> maged ! "%s"' % (str(result)))
 
                 return result
+            else:
+                result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
+                return result
+
+
+    def reversePaySlip(self, emp_id, netSalary):
+
+        emp_rec = self.env['hr.contract'].search([('employee_id', '=', int(emp_id))])
+        dt_start = emp_rec.date_start
+        salary = netSalary
+        _logger.info('dt_start maged ! "%s"' % (str(dt_start)))
+        _logger.info('salary maged ! "%s"' % (str(salary)))
+        result = 0.0
+
+        today = date.today()
+        _logger.info('today maged ! "%s"' % (str(today)))
+
+        start_month = datetime.strptime(str(dt_start), "%Y-%m-%d").month
+        _logger.info('start_month maged ! "%s"' % (str(start_month)))
+        start_year = datetime.strptime(str(dt_start), "%Y-%m-%d").year
+        _logger.info('start_year maged ! "%s"' % (str(start_year)))
+
+        current_month = today.month
+        _logger.info('current_month maged ! "%s"' % (str(current_month)))
+        current_year = today.year
+        _logger.info('current_year maged ! "%s"' % (str(current_year)))
+
+
+        if salary <= 2000:
+            return result
+        elif 2000 < salary <= 43572.92:
+            result = taxation.SalaryTaxTo600ReverseLayer(self,salary)
+            return result
+        elif 43572.92 < salary <= 45812.50:
+            result = taxation.SalaryTaxFrom601To700ReverseLayer(self,salary)
+            return result
+        elif 45812.50 < salary <= 51875.00:
+            result = taxation.SalaryTaxFrom701To800ReverseLayer(self,salary)
+            return result
+        elif 51875.00 < salary <= 57937.50:
+            result = taxation.SalaryTaxFrom801To900ReverseLayer(self,salary)
+            return result
+        elif 57937.50 < salary <= 63937.50:
+            result = taxation.SalaryTaxFrom901To1000ReverseLayer(self,salary)
+            return result
+        elif salary > 63937.50:
+            result = taxation.SalaryTaxFrom1001Layer(self,salary)
+            return result
+
+
+    def SalaryTaxTo600ReverseLayer(self,salary):
+
+        grossSalaryPartialy = 0.0
+
+        if 2000 < salary <= 3218.75:
+            grossSalaryPartialy = salary - 50
+            percent = 0.975
+            return (grossSalaryPartialy/percent)
+
+        elif 3218.75 < salary <= 4343.75:
+            grossSalaryPartialy = salary - 293.75
+            percent = 0.9
+            return (grossSalaryPartialy / percent)
+
+        elif 4343.75 < salary <= 5406.25:
+            grossSalaryPartialy = salary - 518.75
+            percent = 0.85
+            return (grossSalaryPartialy / percent)
+
+        elif 5406.25 < salary <= 14739.58:
+            grossSalaryPartialy = salary - 806.25
+            percent = 0.8
+            return (grossSalaryPartialy / percent)
+
+        elif 14739.58 < salary <= 27656.25:
+            grossSalaryPartialy = salary - 1241.66651666667
+            percent = 0.775
+            return (grossSalaryPartialy / percent)
+
+        elif 27656.25 < salary <= 39593.75:
+            grossSalaryPartialy = salary - 2093.746667
+            percent = 0.75
+            return (grossSalaryPartialy / percent)
+        else:
+            return 0.0
+
+
+
+    def SalaryTaxFrom601To700ReverseLayer(self,salary):
+
+        return salary
+
+    def SalaryTaxFrom601To700ReverseLayer(self,salary):
+
+        return salary
+
+    def SalaryTaxFrom701To800ReverseLayer(self,salary):
+
+        return salary
+
+    def SalaryTaxFrom801To900ReverseLayer(self,salary):
+
+        return salary
+
+    def SalaryTaxFrom901To1000ReverseLayer(self,salary):
+
+        return salary
+
+    def SalaryTaxFrom1001Layer(self,salary):
+
+        return salary
+
+
+
+
+
