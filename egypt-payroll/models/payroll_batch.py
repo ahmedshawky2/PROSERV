@@ -41,9 +41,9 @@ class payslipbatchrun(models.Model):
                     basic = basic + pl.amount
                 elif pl.code == "GROSS_REVERSE" or pl.code == "GROSS":
                     gross = gross + pl.amount
-                elif pl.code == "NET_REVERSE" or pl.code == "NET":
-                    net_salary = net_salary + pl.amount
                 elif pl.code == "NSAT_REVERSE" or pl.code == "NSAT":
+                    net_salary = net_salary + pl.amount
+                elif pl.code == "ST_REVERSE" or pl.code == "ST":
                     tax = tax + pl.amount
                 elif pl.code == "ICSR_REVERSE" or pl.code == "SIR_REVERSE" or pl.code == "ICSR" or pl.code == "SIR":
                     insurance = insurance + pl.amount
