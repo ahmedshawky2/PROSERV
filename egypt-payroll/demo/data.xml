@@ -111,27 +111,6 @@
             <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE"></field>
         </record>
 
-        <!--<record id="hr_rule_vicsr" model="hr.salary.rule">
-            <field name="name">Variant Insurance Company Share EG</field>
-            <field name="sequence" eval="500"/>
-            <field name="code">VICSR</field>
-            <field name="category_id" ref="egypt-payroll.VICS"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.var_insurance_salary * 0.24</field>
-            <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE"></field>
-        </record>-->
-
-        <!--<record id="hr_rule_vsir" model="hr.salary.rule">
-            <field name="name">Variant Social Insurance EG</field>
-            <field name="sequence" eval="201"/>
-            <field name="code">VSIR</field>
-            <field name="category_id" ref="egypt-payroll.SI"/>
-            <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = (contract.var_insurance_salary * 0.35) * -1</field>
-            <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE"></field>
-        </record>-->
 
         <record id="hr_rule_sir" model="hr.salary.rule">
             <field name="name">Social Insurance Employer's Share EG</field>
@@ -189,16 +168,17 @@
             <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE"></field>
         </record>
 
-        <!--<record id="hr_rule_outsource_tax" model="hr.salary.rule">
-            <field name="name">Salary Tax Outsource EG</field>
-            <field name="sequence" eval="801"/>
-            <field name="code">STO</field>
-            <field name="category_id" ref="egypt-payroll.TAX"/>
+
+        <record id="hr_rule_basic_reverse" model="hr.salary.rule">
+            <field name="name">Basic Salary Reverse EG</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">BASIC_REVERSE</field>
+            <field name="category_id" ref="egypt-payroll.BASIC"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">	result = (categories.NET) * 0.1</field>
-            <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE"></field>
-        </record>-->
+            <field name="amount_python_compute">result = payslip.env['hr.payslip'].reversePaySlip(contract.employee_id, contract.wage) + (contract.insurance_wage * 0.11)</field>
+            <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE_REVERSE"></field>
+        </record>
 
 
         <record id="hr_rule_net_gross_reverse" model="hr.salary.rule">
@@ -208,7 +188,7 @@
             <field name="category_id" ref="egypt-payroll.GROSS"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = payslip.env['hr.payslip'].reversePaySlip(contract.employee_id, contract.wage)</field>
+            <field name="amount_python_compute">result = categories.BASIC - (contract.insurance_wage * 0.11)</field>
             <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE_REVERSE"></field>
         </record>
 
@@ -219,7 +199,7 @@
             <field name="category_id" ref="egypt-payroll.NET"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.wage</field>
+            <field name="amount_python_compute">result = categories.GROSS - categories.TAX</field>
             <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE_REVERSE"></field>
         </record>
 
@@ -241,7 +221,29 @@
             <field name="category_id" ref="egypt-payroll.NET"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = payslip.env['hr.payslip'].reversePaySlip(contract.employee_id, contract.wage)</field>
+            <field name="amount_python_compute">result = categories.GROSS</field>
+            <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE_REVERSE"></field>
+        </record>
+
+        <record id="hr_rule_icsr_reverse" model="hr.salary.rule">
+            <field name="name">Social Insurance Worker's Share Reverse EG</field>
+            <field name="sequence" eval="100"/>
+            <field name="code">ICSR_REVERSE</field>
+            <field name="category_id" ref="egypt-payroll.ICS"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = (contract.insurance_wage) * 0.2975 * -1</field>
+            <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE_REVERSE"></field>
+        </record>
+
+        <record id="hr_rule_sir_reverse" model="hr.salary.rule">
+            <field name="name">Social Insurance Employer's Share Reverse EG</field>
+            <field name="sequence" eval="101"/>
+            <field name="code">SIR_REVERSE</field>
+            <field name="category_id" ref="egypt-payroll.SI"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = (contract.insurance_wage * 0.1875)</field>
             <field name="struct_id" ref="egypt-payroll.EGYPT_STRUCTURE_REVERSE"></field>
         </record>
 

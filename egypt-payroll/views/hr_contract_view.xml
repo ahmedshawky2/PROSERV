@@ -8,17 +8,12 @@
             <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='main_info']" position="after">
+                    <group name="salary_type" string="Salary Type">
+                        <field name="net_salary_flag" string="Is Net Salary ?" type="checkbox"/>
+                    </group>
+                </xpath>
+                <xpath expr="//group[@name='salary_type']" position="after">
                     <group name="social_insurance" string="Social Insurance">
-                        <!--<label for="Basic Social Insurance Salary"/>
-                        <div class="o_row" name="basic_insurance_salary">
-                            <field name="basic_insurance_salary" nolabel="1"/>
-                            <span>/ month</span>
-                        </div>
-                        <label for="Variable Social Insurance Salary"/>
-                        <div class="o_row" name="var_insurance_salary">
-                            <field name="var_insurance_salary" nolabel="1"/>
-                            <span>/ month</span>
-                        </div>-->
                         <field name="insurance_wage" />
                     </group>
                 </xpath>

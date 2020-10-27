@@ -11,22 +11,20 @@ _logger = logging.getLogger(__name__)
 class taxation(models.Model):
     _inherit = 'hr.payslip'
 
-    #@api.multi
+
     def get_salary_m_taxes(self, emp_id, netgross):
 
         emp_rec = self.env['hr.contract'].search([('employee_id', '=', int(emp_id))])
         dt_start = emp_rec.date_start
-        salary = netgross
         _logger.info('dt_start maged ! "%s"' % (str(dt_start)))
         _logger.info('salary maged ! "%s"' % (str(salary)))
-        result = 0.0
 
         today = date.today()
         _logger.info('today maged ! "%s"' % (str(today)))
 
-        start_month =datetime.strptime(str(dt_start),"%Y-%m-%d").month
+        start_month = datetime.strptime(str(dt_start), "%Y-%m-%d").month
         _logger.info('start_month maged ! "%s"' % (str(start_month)))
-        start_year =datetime.strptime(str(dt_start),"%Y-%m-%d").year
+        start_year = datetime.strptime(str(dt_start), "%Y-%m-%d").year
         _logger.info('start_year maged ! "%s"' % (str(start_year)))
 
         current_month = today.month
@@ -34,32 +32,13 @@ class taxation(models.Model):
         current_year = today.year
         _logger.info('current_year maged ! "%s"' % (str(current_year)))
 
-        #personal_exempt = (1 / 12) * 9000
-        #salary = salary - personal_exempt
-        annual_netgross_salary = 12*salary
+        is_net_salary = emp_rec.is_net_salary
 
+        if is_net_salary == True:
+            taxation.reversePaySlip(self, emp_id, netSalary)
 
-        if annual_netgross_salary < 0:
-            return result
-        elif 0 <= annual_netgross_salary <= 600000:
-            result = taxation.SalaryTaxTo600Layer(self,salary)
-            return result
-        elif 600001<= annual_netgross_salary <= 700000:
-            result = taxation.SalaryTaxFrom601To700Layer(self,salary)
-            return result
-        elif 700001<= annual_netgross_salary <= 800000:
-            result = taxation.SalaryTaxFrom701To800Layer(self,salary)
-            return result
-        elif 800001<= annual_netgross_salary <= 900000:
-            result = taxation.SalaryTaxFrom801To900Layer(self,salary)
-            return result
-        elif 900001<= annual_netgross_salary <= 1000000:
-            result = taxation.SalaryTaxFrom901To1000Layer(self,salary)
-            return result
-        elif annual_netgross_salary >= 1000001:
-            result = taxation.SalaryTaxFrom1001Layer(self,salary)
-            return result
-
+        else:
+            taxation.EgyPayroll(self, emp_id, netgross)
 
     def sum_inputs_codes(self, payslip_id, code, contract_id):
 
@@ -568,6 +547,36 @@ class taxation(models.Model):
                 result = tax0 + tax2_5 + tax10 + tax15 + tax20 + tax22_5 + tax25
                 return result
 
+    def EgyPayroll(self, emp_id, netgross):
+
+        salary = netgross
+
+        result = 0.0
+
+        # personal_exempt = (1 / 12) * 9000
+        # salary = salary - personal_exempt
+        annual_netgross_salary = 12 * salary
+
+        if annual_netgross_salary < 0:
+            return result
+        elif 0 <= annual_netgross_salary <= 600000:
+            result = taxation.SalaryTaxTo600Layer(self, salary)
+            return result
+        elif 600001 <= annual_netgross_salary <= 700000:
+            result = taxation.SalaryTaxFrom601To700Layer(self, salary)
+            return result
+        elif 700001 <= annual_netgross_salary <= 800000:
+            result = taxation.SalaryTaxFrom701To800Layer(self, salary)
+            return result
+        elif 800001 <= annual_netgross_salary <= 900000:
+            result = taxation.SalaryTaxFrom801To900Layer(self, salary)
+            return result
+        elif 900001 <= annual_netgross_salary <= 1000000:
+            result = taxation.SalaryTaxFrom901To1000Layer(self, salary)
+            return result
+        elif annual_netgross_salary >= 1000001:
+            result = taxation.SalaryTaxFrom1001Layer(self, salary)
+            return result
 
     def reversePaySlip(self, emp_id, netSalary):
 
@@ -613,7 +622,6 @@ class taxation(models.Model):
             result = taxation.SalaryTaxFrom1001Layer(self,salary)
             return result
 
-
     def SalaryTaxTo600ReverseLayer(self,salary):
 
         grossSalaryPartialy = 0.0
@@ -649,8 +657,6 @@ class taxation(models.Model):
             return (grossSalaryPartialy / percent)
         else:
             return 0.0
-
-
 
     def SalaryTaxFrom601To700ReverseLayer(self,salary):
 

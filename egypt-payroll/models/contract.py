@@ -12,8 +12,6 @@ class hrContractExtend(models.Model):
 
     _inherit = "hr.contract"
 
-    insurance_wage = fields.Monetary('Insurance Wage', digits=(16, 2), track_visibility="always",
-                           help="Employee's monthly insurance wage.",index=True,store=True)
+    insurance_wage = fields.Monetary('Insurance Wage', digits=(16, 2), track_visibility="always",help="Employee's monthly insurance wage.",index=True,store=True)
 
-    #var_insurance_salary = fields.Monetary('Variable Social Insurance Salary', digits=(16, 2), track_visibility="always",
-                           #help="Employee's monthly variable social insurance salary.",index=True,store=True)
+    net_salary_flag = fields.Boolean(name="Is Net Salary ?", index=True, store=True, default=False, help="Is Net Salary ?", track_visibility='always')
