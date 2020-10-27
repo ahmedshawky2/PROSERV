@@ -31,9 +31,9 @@ class taxation(models.Model):
         current_year = today.year
         _logger.info('current_year maged ! "%s"' % (str(current_year)))
 
-        is_net_salary = emp_rec.is_net_salary
+        net_salary_flag = emp_rec.net_salary_flag
 
-        if is_net_salary == True:
+        if net_salary_flag == True:
             return taxation.reversePaySlip(self, emp_id, netSalary)
 
         else:
