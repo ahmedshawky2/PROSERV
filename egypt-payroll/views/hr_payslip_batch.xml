@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Add test field to existing view -->
+        <record model="ir.ui.view" id="hr_payslip_batch_extend_view">
+            <field name="name">Payslip Batch Extend View</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="egypt-payroll.hr_payslip_batch_extend_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_draft']" position="after">
+                    <button name="calculate_batch_payslips" class="oe_stat_button" icon="fa-area-chart" type="object" help="Calculate Payslips"/>
+                </xpath>
+                <xpath expr="//sheet/group" position="after">
+                    <group name="payslips_amount" string="Payslips Amounts">
+                        <field name="payslips_basics" readonly="1"/>
+                        <field name="payslips_insurance" readonly="1"/>
+                        <field name="payslips_gross" readonly="1"/>
+                        <field name="payslips_taxes" readonly="1"/>
+                        <field name="payslips_net_salaries" readonly="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -17,7 +17,6 @@ class taxation(models.Model):
         emp_rec = self.env['hr.contract'].search([('employee_id', '=', int(emp_id))])
         dt_start = emp_rec.date_start
         _logger.info('dt_start maged ! "%s"' % (str(dt_start)))
-        _logger.info('salary maged ! "%s"' % (str(salary)))
 
         today = date.today()
         _logger.info('today maged ! "%s"' % (str(today)))
@@ -35,10 +34,10 @@ class taxation(models.Model):
         is_net_salary = emp_rec.is_net_salary
 
         if is_net_salary == True:
-            taxation.reversePaySlip(self, emp_id, netSalary)
+            return taxation.reversePaySlip(self, emp_id, netSalary)
 
         else:
-            taxation.EgyPayroll(self, emp_id, netgross)
+            return taxation.EgyPayroll(self, emp_id, netgross)
 
     def sum_inputs_codes(self, payslip_id, code, contract_id):
 
