@@ -8,15 +8,27 @@
             <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_draft']" position="after">
-                    <button name="calculate_batch_payslips" class="oe_highlight" type="object" help="Calculate Payslips"/>
+                    <button string="Confirm Payslips" name="calculate_batch_payslips" class="oe_highlight" type="object"
+                            help="Calculate Payslips"/>
+                    <button string="Create Invoice" name="create_payslips_invoice" class="oe_highlight" type="object"
+                            help="Create Payslips Invoice"/>
                 </xpath>
                 <xpath expr="//sheet/group" position="after">
-                    <group name="payslips_amount" string="Payslips Amounts">
-                        <field name="payslips_basics" readonly="1"/>
-                        <field name="payslips_insurance" readonly="1"/>
-                        <field name="payslips_gross" readonly="1"/>
-                        <field name="payslips_taxes" readonly="1"/>
-                        <field name="payslips_net_salaries" readonly="1"/>
+                    <group name="invoice_summary">
+                        <group name="invoice_details" string="Payslips Invoice Details">
+                            <field name="partner_id" readonly="0"/>
+                            <field name="invoice_date" readonly="0"/>
+                            <field name="invoice_payment_term_id" readonly="0"/>
+                            <field name="journal_id" readonly="0"/>
+                            <field name="account_id" readonly="0"/>
+                        </group>
+                        <group name="payslips_amount" string="Payslips Amounts">
+                            <field name="payslips_basics" readonly="1"/>
+                            <field name="payslips_insurance" readonly="1"/>
+                            <field name="payslips_gross" readonly="1"/>
+                            <field name="payslips_taxes" readonly="1"/>
+                            <field name="payslips_net_salaries" readonly="1"/>
+                        </group>
                     </group>
                 </xpath>
             </field>
