@@ -53,5 +53,5 @@ class payslipbatchrun(models.Model):
         self.payslips_net_salaries = net_salary
         self.payslips_insurance = insurance
         self.payslips_gross = gross
-        self.payslips_taxes = tax
+        self.payslips_taxes = tax * -1
         self.payslips_basics = basic
