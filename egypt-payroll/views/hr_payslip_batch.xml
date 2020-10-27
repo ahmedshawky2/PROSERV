@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_draft']" position="after">
-                    <button name="calculate_batch_payslips" class="oe_stat_button" icon="fa-area-chart" type="object" help="Calculate Payslips"/>
+                    <button name="calculate_batch_payslips" class="oe_highlight" type="object" help="Calculate Payslips"/>
                 </xpath>
                 <xpath expr="//sheet/group" position="after">
                     <group name="payslips_amount" string="Payslips Amounts">
