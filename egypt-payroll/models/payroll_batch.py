@@ -11,6 +11,7 @@ _logger = logging.getLogger(__name__)
 class payslipbatchrun(models.Model):
     _inherit = 'hr.payslip.run'
 
+    currency_id = fields.Many2one(string="Currency", related='company_id.currency_id', readonly=True)
     payslips_basics = fields.Monetary('Payslips Basics', digits=(16, 2), track_visibility="always",help="Payslips Basics.",index=True,store=True)
     payslips_insurance = fields.Monetary('Payslips Social Insurances', digits=(16, 2), track_visibility="always",help="Payslips Social Insurances.",index=True,store=True)
     payslips_gross = fields.Monetary('Payslips Gross', digits=(16, 2), track_visibility="always",help="Payslips Gross.",index=True,store=True)
