@@ -76,7 +76,7 @@ class payslipbatchrun(models.Model):
             'invoice_date' : self.invoice_date,
             'ref' : self.name,
             #'type' : "out_invoice",
-            'invoice_payment_state' : "not_paid",
+            #'invoice_payment_state' : "not_paid",
         })
 
         self.env.cr.commit()
