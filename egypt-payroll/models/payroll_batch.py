@@ -112,8 +112,8 @@ class payslipbatchrun(models.Model):
             'product_id': int(productProductHandlingFeesId),
             'quantity': 1.0,
             'price_unit': self.payslips_net_salaries * 0.05,
-            'credit': self.payslips_net_salaries * 0.05,
-            'debit': 0.0,
+            #'credit': self.payslips_net_salaries * 0.05,
+            #'debit': 0.0,
             'account_id': self.account_id.id,
             'name' : "Basic: " + str(self.payslips_basics) + ", Gross: " + str(self.payslips_gross) + ", Social Insurances: " + str(self.payslips_insurance) + ", Taxes: " + str(self.payslips_taxes) + ", Net Salaries: " + str(self.payslips_net_salaries),
         })
