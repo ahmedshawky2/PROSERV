@@ -75,7 +75,7 @@ class payslipbatchrun(models.Model):
             'invoice_user_id' : int(self._uid),
             'invoice_date' : self.invoice_date,
             'ref' : self.name,
-            'type' : "out_invoice",
+            #'type' : "out_invoice",
             'invoice_payment_state' : "not_paid",
         })
 
